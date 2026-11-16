@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Seavora - Organize suas finanças, crie metas e simule investimentos de forma simples e inteligente.">
+  <meta name="theme-color" content="#08756f">
+  <link rel="icon" href="assets/icon.png">
+  <title>Seavora — Organize seu dinheiro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/refresh.css">
+  <link rel="stylesheet" href="css/pro.css">
+  <link rel="manifest" href="manifest.webmanifest">
+  <script>
+    (function () {
+      try {
+        var raw = localStorage.getItem('finflow_data_v1');
+        var pref = 'auto';
+        if (raw) {
+          var data = JSON.parse(raw);
+          if (data && data.settings && data.settings.theme) pref = data.settings.theme;
+        }
+        var dark = pref === 'dark' || (pref === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme-pref', pref);
+      } catch (e) {}
+    })();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Ir para conteúdo</a><div id="app">
+    <!-- Sidebar / Navigation -->
+    <aside id="sidebar" class="sidebar" aria-label="Navegação principal">
+      <div class="sidebar-header">
+        <div class="logo">
+          <img class="brand-icon" src="assets/icon.png" alt="">
+          <span class="logo-text">SEAVORA</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav"><div class="nav-group">Visão geral</div><button class="nav-item active" data-page="dashboard" aria-current="page">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Visão Geral</span>
+        </button><button class="nav-item" data-page="financas"><i data-lucide="wallet"></i><span>Minhas finanças</span></button><button class="nav-item" data-page="calendario"><i data-lucide="calendar-days"></i><span>Calendário financeiro</span></button><button class="nav-item" data-page="historico">
+          <i data-lucide="history"></i>
+          <span>Histórico</span>
+        </button><div class="nav-group">Planejamento</div><button class="nav-item" data-page="caixinhas">
+          <i data-lucide="wallet"></i>
+          <span>Minhas Caixinhas</span>
+        </button><button class="nav-item" data-page="metas">
+          <i data-lucide="target"></i>
+          <span>Metas</span>
+        </button><button class="nav-item" data-page="carteira"><i data-lucide="chart-pie"></i><span>Minha carteira</span></button><button class="nav-item" data-page="simulador">
+          <i data-lucide="line-chart"></i>
+          <span>Simulador</span>
+        </button><div class="nav-group">Conhecimento</div><button class="nav-item" data-page="calculadoras">
+          <i data-lucide="calculator"></i>
+          <span>Calculadoras</span>
+        </button><button class="nav-item" data-page="laboratorio"><i data-lucide="flask-conical"></i><span>Laboratório</span></button><button class="nav-item" data-page="investimentos">
+          <i data-lucide="trending-up"></i>
+          <span>Investimentos</span>
+        </button><button class="nav-item" data-page="educacao">
+          <i data-lucide="book-open"></i>
+          <span>Academia Seavora</span>
+        </button><button class="nav-item" data-page="diagnostico"><i data-lucide="clipboard-check"></i><span>Diagnóstico</span></button><button class="nav-item" data-page="conquistas">
+          <i data-lucide="trophy"></i>
+          <span>Conquistas</span>
+        </button><div class="nav-group">Preferências</div><button class="nav-item" data-page="configuracoes">
+          <i data-lucide="settings"></i>
+          <span>Configurações</span>
+        </button></nav>
+      <div class="sidebar-footer"><a class="back-home" href="index.html">← Página inicial</a>
+        <div class="user-info">
+          <div class="user-avatar" id="user-avatar">U</div>
+          <div class="user-details">
+            <span class="user-name" id="user-name">Usuário</span>
+            <span class="user-label">Seavora</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main" class="main">
+      <header class="topbar">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">
+          <i data-lucide="menu"></i>
+        </button>
+        <h1 class="page-title" id="page-title">Visão Geral</h1>
+        <div class="topbar-actions">
+          <button class="btn-icon" id="privacy-toggle" aria-label="Ocultar valores" title="Ocultar valores"><i data-lucide="eye"></i><span class="icon-fallback">◉</span></button><button class="btn-icon" id="theme-toggle" aria-label="Alternar tema">
+            <i data-lucide="moon"></i>
+          </button>
+          <button class="btn-icon" id="notif-btn" aria-label="Notificações">
+            <i data-lucide="bell"></i>
+            <span class="notif-badge" id="notif-badge" hidden>0</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="content" id="content" tabindex="-1">
+        <!-- Pages will be injected here -->
+      </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav" id="bottom-nav" aria-label="Navegação móvel">
+      <button class="bottom-nav-item active" data-page="dashboard">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Início</span>
+      </button>
+      <button class="bottom-nav-item" data-page="caixinhas">
+        <i data-lucide="wallet"></i>
+        <span>Caixinhas</span>
+      </button>
+      <button class="bottom-nav-item" data-page="metas">
+        <i data-lucide="target"></i>
+        <span>Metas</span>
+      </button>
+      <button class="bottom-nav-item" data-page="simulador">
+        <i data-lucide="line-chart"></i>
+        <span>Simular</span>
+      </button>
+      <button class="bottom-nav-item" data-page="mais">
+        <i data-lucide="more-horizontal"></i>
+        <span>Mais</span>
+      </button>
+    </nav>
+
+    <!-- FAB (mobile quick add) -->
+    <button class="fab" id="fab-add" aria-label="Adicionar dinheiro ou criar caixinha">
+      <i data-lucide="plus" style="width:24px;height:24px"></i>
+    </button>
+  </div>
+
+  <!-- Modal Container -->
+  <div id="modal-container" class="modal-container" hidden></div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Notification Panel -->
+  <div id="notif-panel" class="notif-panel" hidden>
+    <div class="notif-header">
+      <h3>Notificações</h3>
+      <button class="btn-icon" id="close-notif" aria-label="Fechar">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="notif-list" id="notif-list"></div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/calculators.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/caixinhas.js"></script>
+  <script src="js/goals.js"></script>
+  <script src="js/investments.js"></script>
+  <script src="js/planner.js"></script>
+  <script src="data/academy.js"></script>
+  <script src="js/academy.js"></script>
+  <script src="js/money.js"></script>
+  <script src="js/advanced.js"></script>
+  <script src="js/diagnostics.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/pro.js"></script>
+</body>
+</html>
