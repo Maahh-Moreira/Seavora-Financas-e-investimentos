@@ -34,3 +34,9 @@ Laboratório, diagnóstico e trilha avançada.
 - Landing page responsiva, artes SVG, prévia do painel e simulador demonstrativo.
 - Painel movido para app.html; armazenamento e rotas internas preservados.
 - Cache PWA atualizado.
+
+## 7.0
+- Landing page reconstruída a partir da referência visual; artes recortadas e otimizadas, navegação e tema responsivos. Mockups ilustrativos.
+
+## 7.1
+- Landing exclusivamente clara, navegação revisada, artes integradas e responsividade refinada.
